@@ -59,6 +59,7 @@ html {
 
 body {
   margin: 0;
+    background-image: url(background.jpg);
 }
 
 a:focus {
@@ -757,8 +758,6 @@ pre code {
 }
 
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -925,9 +924,7 @@ pre code {
 }
 
 @media (min-width: 768px) {
-  .container {
-    max-width: 750px;
-  }
+
   .col-sm-1,
   .col-sm-2,
   .col-sm-3,
@@ -1079,9 +1076,7 @@ pre code {
 }
 
 @media (min-width: 992px) {
-  .container {
-    max-width: 970px;
-  }
+
   .col-md-1,
   .col-md-2,
   .col-md-3,
@@ -4196,6 +4191,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
+    
+}
+
+img.navbar-brand {
+    margin-left: 15px;
 }
 
 .navbar-brand:hover,
@@ -4204,9 +4204,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 @media (min-width: 768px) {
-  .navbar > .container .navbar-brand {
-    margin-left: -15px;
-  }
+
 }
 
 .navbar-toggle {
@@ -4501,12 +4499,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
+  background-color: #043b5a;
   border-color: #080808;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4516,11 +4514,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-text {
-  color: #999999;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -4928,13 +4926,14 @@ a.list-group-item.active > .badge,
 }
 
 .jumbotron {
-  padding: 30px;
+  padding: 0px;
   margin-bottom: 30px;
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
-  color: inherit;
-  background-color: #eeeeee;
+  color: #fff;
+  background-color: rgba(4, 59, 90, 0.3); /*#eeeeee33;*/
+  
 }
 
 .jumbotron h1 {
