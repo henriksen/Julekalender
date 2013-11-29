@@ -23,7 +23,7 @@ namespace Julekalender
             {
                 while (true)
                 {
-                    var timeUntilOpening = new DateTime(2013, 11, 29, 9, 3, 0) -
+                    var timeUntilOpening = new DateTime(2013, 11, 29, 21, 11, 15) -
                                            DateTime.Now;
                     var msg = timeUntilOpening.Days > 0 ? timeUntilOpening.Days + 
                         (timeUntilOpening.Days == 1 ? " dag, " : " dager, ") : "";
@@ -44,17 +44,24 @@ namespace Julekalender
                     }
                     else
                     {
+                        hubContext.Clients.All.prepareDraw();
+                        Thread.Sleep(6000);
+
                         var names = new string[] {"Per", "Pål", "Espen", "Kari", "Mari"};
                         int length = names.Length;
                         Random rnd = new Random();
-                        var target = rnd.Next(50, 100);
+                        var target = rnd.Next(100, 200);
+                        var winner = "";
                         for (int i = 0; i < target ; i++)
                         {
                             var index = i%length;
-                            hubContext.Clients.All.upDateCountdown(names[index]);
-                            Thread.Sleep(100+i);
+                            var delay = 100 + 5*i;
+                            winner = names[index];
+                            hubContext.Clients.All.showName(winner, delay);
+                            Thread.Sleep(delay);
                         }
-                        hubContext.Clients.All.letItSnow();
+
+                        hubContext.Clients.All.letItSnow(winner);
 
                         Thread.Sleep(10000);
                     }

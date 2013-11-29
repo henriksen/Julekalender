@@ -3,6 +3,9 @@
     padding-bottom: 20px;
 }
 
+#name {
+    display: none;
+}
 .snowcanvas {
     position: absolute;
     z-index: 1000;

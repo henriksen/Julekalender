@@ -4933,6 +4933,7 @@ a.list-group-item.active > .badge,
   line-height: 2.1428571435;
   color: #fff;
   background-color: rgba(4, 59, 90, 0.3); /*#eeeeee33;*/
+    height: 400px;
   
 }
 
