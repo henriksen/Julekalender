@@ -3,6 +3,15 @@
     padding-bottom: 20px;
 }
 
+.snowcanvas {
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    display: none;
+    
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
 

@@ -195,6 +195,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JSSnow\img\bg.jpg" />
+    <Content Include="Scripts\JSSnow\img\ParticleSmoke.png" />
+    <Content Include="Scripts\JSSnow\js\Snow.js" />
+    <Content Include="Scripts\JSSnow\js\ThreeCanvas.js" />
+    <Content Include="Scripts\JSSnow\snow3d.html" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
