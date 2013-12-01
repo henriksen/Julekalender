@@ -72,7 +72,8 @@ namespace Julekalender
                             hubContext.Clients.All.showName(winner.Name, delay);
                             Thread.Sleep(delay);
                         }
-
+                        nextDrawing.Winner = winner;
+                        db.SaveChanges();
                         hubContext.Clients.All.letItSnow(winner.Name);
 
                         Thread.Sleep(10000);
