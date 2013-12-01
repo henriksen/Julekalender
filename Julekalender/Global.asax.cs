@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Julekalender.App_Start;
 using Julekalender.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.SignalR;
 
 namespace Julekalender
@@ -24,10 +25,18 @@ namespace Julekalender
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
+                var db = new ApplicationDbContext();
+
                 while (true)
                 {
-                    var timeUntilOpening = new DateTime(2013, 11, 29, 21, 11, 15) -
-                                           DateTime.Now;
+                    var nextDrawing = (from d in db.Drawings
+                        where d.Time > DateTime.Now
+                        orderby d.Time
+                        select d).FirstOrDefault();
+                    if (nextDrawing == null)
+                    {break;}
+                    
+                    var timeUntilOpening = nextDrawing.Time - DateTime.Now;
                     var msg = timeUntilOpening.Days > 0 ? timeUntilOpening.Days + 
                         (timeUntilOpening.Days == 1 ? " dag, " : " dager, ") : "";
                     msg += timeUntilOpening.Hours > 0 ? timeUntilOpening.Hours + 
@@ -50,7 +59,6 @@ namespace Julekalender
                         hubContext.Clients.All.prepareDraw();
                         Thread.Sleep(6000);
 
-                        var db = new ApplicationDbContext();
                         var participants = db.Participants.ToList();
                         int length = participants.Count();
                         Random rnd = new Random();
