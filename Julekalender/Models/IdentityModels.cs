@@ -13,5 +13,7 @@ namespace Julekalender.Models
             : base("DefaultConnection")
         {
         }
+
+        public System.Data.Entity.DbSet<Julekalender.Models.Participant> Participants { get; set; }
     }
 }

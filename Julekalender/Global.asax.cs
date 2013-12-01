@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Julekalender.App_Start;
+using Julekalender.Models;
 using Microsoft.AspNet.SignalR;
 
 namespace Julekalender
@@ -18,6 +20,7 @@ namespace Julekalender
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            UserConfig.CreateDefaultUsers();
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
@@ -47,21 +50,22 @@ namespace Julekalender
                         hubContext.Clients.All.prepareDraw();
                         Thread.Sleep(6000);
 
-                        var names = new string[] {"Per", "Pål", "Espen", "Kari", "Mari"};
-                        int length = names.Length;
+                        var db = new ApplicationDbContext();
+                        var participants = db.Participants.ToList();
+                        int length = participants.Count();
                         Random rnd = new Random();
                         var target = rnd.Next(100, 200);
-                        var winner = "";
-                        for (int i = 0; i < target ; i++)
+                        Participant winner = null;
+                        for (var i = 0; i < target ; i++)
                         {
                             var index = i%length;
                             var delay = 100 + 5*i;
-                            winner = names[index];
-                            hubContext.Clients.All.showName(winner, delay);
+                            winner = participants[index];
+                            hubContext.Clients.All.showName(winner.Name, delay);
                             Thread.Sleep(delay);
                         }
 
-                        hubContext.Clients.All.letItSnow(winner);
+                        hubContext.Clients.All.letItSnow(winner.Name);
 
                         Thread.Sleep(10000);
                     }

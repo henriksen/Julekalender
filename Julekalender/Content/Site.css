@@ -15,6 +15,18 @@
     
 }
 
+.glass {
+    padding: 0px;
+  margin-bottom: 30px;
+  color: #fff;
+    background-color: #043b5a;
+    background-color: rgba(4, 59, 90, 0.3); /*#eeeeee33;*/  
+}
+
+.glass a {
+  color: #4cff00;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
 

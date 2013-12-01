@@ -4947,16 +4947,16 @@ a.list-group-item.active > .badge,
   line-height: 1.4;
 }
 
-.container .jumbotron {
+.container .jumbotron, .container .glass  {
   border-radius: 6px;
 }
 
 @media screen and (min-width: 768px) {
-  .jumbotron {
+  .jumbotron, .glass {
     padding-top: 48px;
     padding-bottom: 48px;
   }
-  .container .jumbotron {
+  .container .jumbotron, .container .glass {
     padding-right: 60px;
     padding-left: 60px;
   }
