@@ -15,5 +15,7 @@ namespace Julekalender.Models
         }
 
         public System.Data.Entity.DbSet<Julekalender.Models.Participant> Participants { get; set; }
+
+        public System.Data.Entity.DbSet<Julekalender.Models.Drawing> Drawings { get; set; }
     }
 }
