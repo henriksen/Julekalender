@@ -25,6 +25,8 @@ namespace Julekalender
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<CountDownHub>();
+
                 var db = new ApplicationDbContext();
                 System.Diagnostics.Trace.TraceInformation(db.Database.Connection.ConnectionString);
 
@@ -32,22 +34,23 @@ namespace Julekalender
                 {
                     var drawings = db.Drawings.ToList();
                     System.Diagnostics.Trace.TraceInformation("There are {0} drawings", drawings.Count );
-                    if (drawings.Count == 0)
-                    {
-                        System.Diagnostics.Trace.TraceError("There are no drawings, aborting loop.");
-                        break; 
-                    }
 
-                    var nextDrawing = (from d in db.Drawings
-                        where d.Time > DateTime.Now
-                        orderby d.Time
-                        select d).FirstOrDefault();
-                    if (nextDrawing == null)
+                    Drawing nextDrawing;
+
+                    do
                     {
-                        System.Diagnostics.Trace.TraceError("Found no relevant drawings, aborting loop.");
-                        break;
-                    }
-                    
+                        nextDrawing = (from d in db.Drawings
+                            where d.Time > DateTime.Now
+                            orderby d.Time
+                            select d).FirstOrDefault();
+                        if (nextDrawing == null)
+                        {
+                            System.Diagnostics.Trace.TraceError("Found no relevant drawings");
+                            hubContext.Clients.All.upDateCountdown("Ingen trekninger planlagt.");
+                            Thread.Sleep(5000);
+                        }
+                    } while (nextDrawing == null);
+
                     var timeUntilOpening = nextDrawing.Time - DateTime.Now;
                     var msg = timeUntilOpening.Days > 0 ? timeUntilOpening.Days + 
                         (timeUntilOpening.Days == 1 ? " dag, " : " dager, ") : "";
@@ -61,7 +64,6 @@ namespace Julekalender
                     msg += " til pakkeåpning";
                     System.Diagnostics.Trace.TraceInformation(msg);
 
-                    var hubContext = GlobalHost.ConnectionManager.GetHubContext<CountDownHub>();
                     hubContext.Clients.All.upDateCountdown(msg);
                     if (timeUntilOpening.TotalSeconds > 0)
                     {
@@ -90,6 +92,8 @@ namespace Julekalender
                         hubContext.Clients.All.letItSnow(winner.Name);
 
                         Thread.Sleep(10000);
+                        hubContext.Clients.All.removeSnow();
+
                     }
 
 

@@ -41,6 +41,10 @@
                 elem.fadeIn(duration, function() { elem.fadeOut(duration) });
             };
 
+            countDownHub.client.removeSnow = function() {
+                removeSnow();
+            };
+
             $.connection.hub.start();
         });
 
@@ -65,16 +69,17 @@
         var particleImage = new Image();//THREE.ImageUtils.loadTexture( "img/ParticleSmoke.png" );
         particleImage.src = "/Scripts/JSSnow/img/ParticleSmoke.png"; // />/img/ParticleSmoke.png';
 
-
+        var snowLoopInterval;
+        
+        function removeSnow() {
+            $(".snowcanvas").fadeOut(3000);
+        }
 
         function init() {
 
             var container = $('<div/>', {
                 "class": "snowcanvas"
             }).appendTo("body").fadeIn(3000);
-            //container = document.createElement('div');
-            //container.className = "snowcanvas";
-            //document.body.appendChild(container);
 
             camera = new THREE.PerspectiveCamera(75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
             camera.position.z = 1000;
@@ -105,7 +110,7 @@
             document.addEventListener('touchstart', onDocumentTouchStart, false);
             document.addEventListener('touchmove', onDocumentTouchMove, false);
 
-            setInterval(loop, 1000 / 60);
+            snowLoopInterval = setInterval(loop, 1000 / 60);
 
         }
 
